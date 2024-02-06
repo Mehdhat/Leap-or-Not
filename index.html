@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leap Or not</title>
+    <style>
+        body {
+            font-size: 15px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            height: 100dvh;
+            width: 100dvw;
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            overflow: auto;
+            background-image: linear-gradient(90deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%);
+            animation: gradient 120s ease infinite;
+            background-size: 400% 400%;
+            background-attachment: fixed;
+        }
+
+        #message {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            
+        }
+
+        #checkYear {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-size: calc(1.5rem + (60 - 20) * (100vw - 320px) / (2560 - 320));
+        }
+
+#checkButton {
+  background-color: white;
+  border-style: none;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 10px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  font-weight: 600;
+}
+
+#checkButton:hover,
+#checkButton:focus {
+  background-color: #151314;
+  color: white;
+}
+    </style>
+</head>
+
+<body>
+
+    <h1>Enter 4 digits of a year</h1>
+    <input id="checkYear" type="number" min="1000" max="9999" />
+    <button id="checkButton">Check</button>
+    <code id="message"></code>
+    <script>
+        let isLeapYear = (year) => {
+            return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+        };
+
+        let updateMessage = (value) => {
+            let leap = isLeapYear(value) ? "Leap" : "Not Leap";
+            document.getElementById("message").innerHTML = `The year <strong>${value}</strong> is <b>${leap}</b>`;
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            let input = document.getElementById("checkYear");
+            let button = document.getElementById("checkButton");
+
+            input.addEventListener("change", (e) => {
+                updateMessage(e.target.value);
+            });
+
+            button.addEventListener("click", () => {
+                updateMessage(input.value);
+            });
+
+            input.value = new Date().getFullYear();
+            updateMessage(input.value);
+        });
+    </script>
+</body>
+
+</html>
